@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylos.css">
+    <title>Color Blind</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <!--indice-->
+    <header>
+        <div>
+            <h1>Color Blind</h1>
+        </div>
+        <section>
+            <button class="modo-tema">
+                <img style="width: 100%;height: 100%;" src="/recursos/sol.svg" alt="modo claro" draggable="false"
+                    loading="lazy">
+            </button>
+            <button class="panel-ajustes">
+                <img style="width: 100%;height: 100%;" src="/recursos/tuerca.svg" alt="ajustes" draggable="false"
+                    loading="lazy">
+            </button>
+        </section>
+    </header>
+    <!--juego-->
+    <main id="juego">
+        <!--datos-->
+        <section id="indice">
+            <div class="datos">
+                <span id="ronda-maxima">Máxima ronda: <font>1</font></span>
+                <span id="ronda-ultima">Última ronda: <font>1</font></span>
+                <span id="ronda-actual">1</span>
+            </div>
+            <div class="barra-temporizador">
+                <div id="temporizador"></div>
+            </div>
+        </section>
+        <!--partida-->
+        <section id="partida">
+
+        </section>
+        <!--subindice-->
+        <section id="subindice">
+            <div> <span id="mensaje-inical">press to start<br>Facil</span></div>
+        </section>
+    </main>
+    <!--pagina ajustes-->
+    <div id="pagina-ajustes">
+        <!--indice-->
+        <header>
+            <div>
+                <h1>AJUSTES</h1>
+            </div>
+            <section>
+                <button class="modo-tema">
+                    <img style="width: 100%;height: 100%;" src="/recursos/sol.svg" alt="modo claro" draggable="false"
+                        loading="lazy">
+                </button>
+                <button class="panel-ajustes">
+                    <img style="width: 100%;height: 100%;" src="/recursos/tuerca.svg" alt="ajustes" draggable="false"
+                        loading="lazy">
+                </button>
+            </section>
+        </header>
+        <!--ajustes-->
+        <!--dificultad-->
+        <main>
+            <section id="ajustes-dificultad">
+                <div class="titulo-ajuste"><span id="titulo-dificultad">DIFICULTAD:</span></div>
+                <div style="padding-left:15px ;">
+                    <div class="opcion-dificultad"><button id="bt-dificultad-facil">Fácil</button>
+                        <div id="selecionado-dificultad-facil" class="mostrar-seleccionado"></div>
+                    </div>
+                    <div class="opcion-dificultad"><button id="bt-dificultad-medio">Medio</button>
+                        <div id="selecionado-dificultad-medio" class="mostrar-seleccionado"></div>
+                    </div>
+                    <div class="opcion-dificultad">
+                        <button id="bt-dificultad-dificil">Difícil</button>
+                        <div id="selecionado-dificultad-dificil" class="mostrar-seleccionado"></div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="/script.js"></script>
+</body>
+
+</html>
