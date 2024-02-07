@@ -250,7 +250,7 @@ function rondaGanada() {
     clearInterval(temporizador)
     rondaActual++
     actualizarTemporizador(100)
-    actualizarDatos()
+    actualizarDatos(rondaActual, false)
     generarCasillas()
     inicializarPartida()
 }
@@ -267,10 +267,10 @@ function finJuego() {
     })
 }
 function reiniciarJuego() {
-    rondaActual = 1;
     clearInterval(temporizador)
-    actualizarDatos(rondaActual)
+    actualizarDatos(rondaActual, true)
     actualizarTemporizador(100)
+    rondaActual = 1;
     const textoDificultad = ['easy', 'medium', 'dificult'];
     const estilosMensaje = "width:100%;display:flex;align-items:center;    justify-content: center;font-family: 'Outfit', sans-serif;font-weight:500";
     const texto = ['find it to start', 'encuentralo para comenzar']
@@ -283,15 +283,24 @@ function obtenerFormaCasilla() {
     }
     return (`<div class="casilla"id=""style="${formasCasilla[formaCasilla]}"></div>`)
 }
-function actualizarDatos(UltimaRonda = 1) {
-    if (UltimaRonda > maximaRonda) {
-        maximaRonda = UltimaRonda
+function actualizarDatos(rondarecibida = 1, finJuego = false) {
+    if (!finJuego) {
+        document.querySelector('#ronda-actual').innerHTML = `<font style="vertical-align: inherit;">${rondarecibida}</font>`
     }
-    const texto1 = ['Best round', 'Máxima ronda']
-    document.querySelector('#ronda-maxima').innerHTML = `${texto1[idioma]}: <font>${maximaRonda}</font>`
-    const texto2 = ['Last round', 'Última ronda']
-    document.querySelector('#ronda-ultima').innerHTML = `${texto2[idioma]}: <font>${UltimaRonda}</font>`
-    document.querySelector('#ronda-actual').innerHTML = rondaActual
+    else {
+        //actualizar datos
+        if (maximaRonda < rondarecibida) {
+            maximaRonda = rondarecibida
+        }
+        ultimaRonda = rondarecibida
+        const texto1 = ['Best round', 'Máxima ronda']
+        document.querySelector('#ronda-maxima').innerHTML = `${texto1[idioma]}: <font>${maximaRonda}</font>`
+        const texto2 = ['Last round', 'Última ronda']
+        document.querySelector('#ronda-ultima').innerHTML = `${texto2[idioma]}: <font>${ultimaRonda}</font>`
+        document.querySelector('#ronda-actual').innerHTML = `<font style="vertical-align: inherit;">1</font>`
+        localStorage.setItem('ultimaRonda', ultimaRonda)
+        localStorage.setItem('rondamaxima', maximaRonda)
+    }
 }
 function actualizarTemporizador(progreso) {
     if (progreso >= 70) {
@@ -309,12 +318,11 @@ function actualizarTemporizador(progreso) {
     else {
         document.querySelector('#temporizador').style.background = "rgb(192, 57, 43)"
     }
-    $("#temporizador").animate({
-        width: `${progreso}%`
-    }, 500);
-
+    document.querySelector('#temporizador').style.width = progreso + "%"
 }
 globalThis.addEventListener('load', () => {
+    rondaActual = Number(localStorage.getItem('ultimaRonda'))
+    maximaRonda = Number(localStorage.getItem('rondamaxima'))
     reiniciarJuego()
     actualizarAjustesDificultad(dificultad)
 })
@@ -324,14 +332,26 @@ document.querySelectorAll('.modo-tema').forEach((item) => item.addEventListener(
     const claro = 'rgb(255, 255, 255)'
     //elementos
     const $paginaAjustes = document.querySelector('#pagina-ajustes')
+    const $rondaMaxima = document.querySelector('#ronda-maxima')
+    const $rondaActual = document.querySelector('#ronda-actual')
+    const $ultimaRonda = document.querySelector('#ronda-ultima')
+    const $subindice=document.querySelector('#subindice')
     //cambiar temas
-    if (document.body.style.background == oscuro) {
+    if (document.body.style.background == oscuro) {//claro
         document.body.style.background = claro
         $paginaAjustes.style.background = claro
+        $rondaMaxima.style.color = "#000"
+        $rondaActual.style.color = "#000"
+        $ultimaRonda.style.color = "#000"
+        $subindice.style.color = "#000"
     }
-    else {
+    else {//oscuro
         document.body.style.background = oscuro
         $paginaAjustes.style.background = oscuro
+        $rondaMaxima.style.color = "yellow"
+        $rondaActual.style.color = "yellow"
+        $ultimaRonda.style.color = "yellow"
+        $subindice.style.color = "yellow"
     }
 }))
 let paginaAjustesDesplegada = false
