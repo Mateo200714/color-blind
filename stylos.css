@@ -92,6 +92,10 @@ header button {
     left: 15%;
     width: 70%;
     height: 76%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 #juego #subindice {

@@ -261,18 +261,18 @@ function finJuego() {
     document.querySelector('#subindice').innerHTML = `<button id="reiniciar-bt"style="opacity:0">${texto[idioma]}</button>`
     $("#reiniciar-bt").animate({
         opacity: '1'
-    });
+    })
     document.querySelector('#reiniciar-bt').addEventListener('click', () => {
         reiniciarJuego()
     })
 }
 function reiniciarJuego() {
-    rondaActual = 1;
     clearInterval(temporizador)
     actualizarDatos(rondaActual)
+    rondaActual = 1
     actualizarTemporizador(100)
     const textoDificultad = ['easy', 'medium', 'dificult'];
-    const estilosMensaje = "width:100%;display:flex;align-items:center;    justify-content: center;font-family: 'Outfit', sans-serif;font-weight:500";
+    const estilosMensaje = "width:100%;display:flex;align-items:center;    justify-content: center;font-family: 'Outfit', sans-serif;font-weight:500"
     const texto = ['find it to start', 'encuentralo para comenzar']
     document.querySelector('#subindice').innerHTML = `<div style="${estilosMensaje}"><span id="mensaje-inical" style="text-align:center">${texto[idioma]}<br>${textoDificultad[dificultad]}</span></div>`;
     generarCasillas()
@@ -309,9 +309,7 @@ function actualizarTemporizador(progreso) {
     else {
         document.querySelector('#temporizador').style.background = "rgb(192, 57, 43)"
     }
-    $("#temporizador").animate({
-        width: `${progreso}%`
-    }, 500);
+    document.querySelector('#temporizador').style.width=progreso+"%"
 
 }
 globalThis.addEventListener('load', () => {
@@ -324,14 +322,20 @@ document.querySelectorAll('.modo-tema').forEach((item) => item.addEventListener(
     const claro = 'rgb(255, 255, 255)'
     //elementos
     const $paginaAjustes = document.querySelector('#pagina-ajustes')
+    const $textosDatos=document.querySelector('.datos')
+    const $mensajeInicial=document.querySelector('#mensaje-inical')
     //cambiar temas
     if (document.body.style.background == oscuro) {
         document.body.style.background = claro
         $paginaAjustes.style.background = claro
+        $textosDatos.style.color=oscuro
+        $mensajeInicial.style.color=oscuro
     }
     else {
         document.body.style.background = oscuro
         $paginaAjustes.style.background = oscuro
+        $textosDatos.style.color=claro
+        $mensajeInicial.style.color=claro
     }
 }))
 let paginaAjustesDesplegada = false
@@ -372,14 +376,17 @@ function actualizarAjustesDificultad(dificultad) {
     }
 }
 document.querySelector('#bt-dificultad-facil').addEventListener('click', () => {
-    dificultad = 0;
+    dificultad = 0
     actualizarAjustesDificultad(dificultad)
+    reiniciarJuego()
 })
 document.querySelector('#bt-dificultad-medio').addEventListener('click', () => {
-    dificultad = 1;
+    dificultad = 1
     actualizarAjustesDificultad(dificultad)
+    reiniciarJuego()
 })
 document.querySelector('#bt-dificultad-dificil').addEventListener('click', () => {
-    dificultad = 2;
+    dificultad = 2
     actualizarAjustesDificultad(dificultad)
+    reiniciarJuego()
 })
