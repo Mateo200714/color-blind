@@ -193,6 +193,7 @@ header button {
     height: 100%;
     background-color: #d2d2d2;
     z-index: 1000 !important;
+    display: none;
 }
 
 #pagina-ajustes main section {
