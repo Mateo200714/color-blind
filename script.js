@@ -268,9 +268,9 @@ function finJuego() {
 }
 function reiniciarJuego() {
     clearInterval(temporizador)
-    actualizarDatos(rondaActual)
+    actualizarDatos(rondaActual, true)
+    rondaActual = 1
     actualizarTemporizador(100)
-    rondaActual = 1;
     const textoDificultad = ['easy', 'medium', 'dificult'];
     const estilosMensaje = "width:100%;display:flex;align-items:center;    justify-content: center;font-family: 'Outfit', sans-serif;font-weight:500"
     const texto = ['find it to start', 'encuentralo para comenzar']
@@ -318,9 +318,7 @@ function actualizarTemporizador(progreso) {
     else {
         document.querySelector('#temporizador').style.background = "rgb(192, 57, 43)"
     }
-    $("#temporizador").animate({
-        width: `${progreso}%`
-    }, 500);
+    document.querySelector('#temporizador').style.width=progreso+"%"
 
 }
 globalThis.addEventListener('load', () => {
@@ -335,14 +333,20 @@ document.querySelectorAll('.modo-tema').forEach((item) => item.addEventListener(
     const claro = 'rgb(255, 255, 255)'
     //elementos
     const $paginaAjustes = document.querySelector('#pagina-ajustes')
+    const $textosDatos=document.querySelector('.datos')
+    const $mensajeInicial=document.querySelector('#mensaje-inical')
     //cambiar temas
     if (document.body.style.background == oscuro) {//claro
         document.body.style.background = claro
         $paginaAjustes.style.background = claro
+        $textosDatos.style.color=oscuro
+        $mensajeInicial.style.color=oscuro
     }
     else {//oscuro
         document.body.style.background = oscuro
         $paginaAjustes.style.background = oscuro
+        $textosDatos.style.color=claro
+        $mensajeInicial.style.color=claro
     }
 }))
 let paginaAjustesDesplegada = false
